@@ -62,9 +62,9 @@ int main() {
 ```
 
 Of course the other statics may depend on the allocator to exist (e.g free memory)
-so we cannot deinitialize in main, what we could do is something like; which
+so we cannot deinitialize in main, what we could do is something like this which
 uses atexit to register a lambda function which destroys the statics before the
-other atexit handler runs.
+other atexit handler for all other static global objects runs.
 ```c++
 StaticNode *node;
 int main() {
