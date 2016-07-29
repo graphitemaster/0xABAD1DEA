@@ -3,6 +3,9 @@
 This little header provides an alternative way to construct and destruct static
 global objects.
 
+# How to use
+Add `0xabad1dea.cpp` and `0xabad1dea.h` to your project.
+
 # Examples
 
 ## Trivial
