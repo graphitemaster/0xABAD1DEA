@@ -91,6 +91,16 @@ placement new on uninitialized storage to construct the static objects.
 The same is done for destruction except the tail end of the linked list is
 used so things get destroyed in reverse order as they were constructed.
 
+The intrusive use of the node makes it convienent to do type-erasure, avoid heap
+allocations and most importantly get the associated data backing the actual
+object. Take a look at the definition of `StaticGlobal`. It uses a technique to
+carry over the template type into node's constructor which the node then uses
+to get the address of two wrapper functions for constructing and destructing
+the data. The layout of `StaticGlobal` is such that immediately after the
+node object there is the data we'll be using to construct the object. So
+by going one past a `StaticNode` pointer we're effectively in the data for that
+node.
+
 # Thread safety
 Since this system does depend on existing C++ static constructors to function
 and C++ permits an implementation to thread the initialization of static objects
