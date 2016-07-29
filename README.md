@@ -96,7 +96,7 @@ allocations and most importantly get the associated data backing the actual
 object. Take a look at the definition of `StaticGlobal`. It uses a technique to
 carry over the template type into node's constructor which the node then uses
 to get the address of two wrapper functions for constructing and destructing
-the data. The layout of `StaticGlobal` is such that immediately after the
+the object. The layout of `StaticGlobal` is such that immediately after the
 node object there is the data we'll be using to construct the object. So
 by going one past a `StaticNode` pointer we're effectively in the data for that
 node.
