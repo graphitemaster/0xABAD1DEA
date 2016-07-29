@@ -92,8 +92,11 @@ The same is done for destruction except the tail end of the linked list is
 used so things get destroyed in reverse order as they were constructed.
 
 # Thread safety
-Currently uses a global lock via `pthread.h` but it's about 10 lines of code
-and can be replaced with which ever locking primitive your API may have.
+Since this system does depend on existing C++ static constructors to function
+and C++ permits an implementation to thread the initialization of static objects
+a global lock is used on the linked list. The lock is implemented in terms of
+`pthread_mutex_t` but can be replaced with a more suitable mutex or locking
+primitive of your choosing (it's only ~8 lines or so in the source file.)
 
 # License
 ```
