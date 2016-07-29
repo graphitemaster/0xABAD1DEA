@@ -6,7 +6,7 @@ global objects.
 # Examples
 
 ## Trivial
-```
+```c++
 struct A {
   A() { printf("A::A()\n"); }
   ~A() { printf("A::~A()\n"); }
@@ -22,7 +22,7 @@ int main() {
 ```
 
 ## Calling individuals
-```
+```c++
 int main() {
   StaticNode *node = StaticGlobals::find("MyA1");
   if (node) node->construct(); // manually initialize MyA1
@@ -32,7 +32,7 @@ int main() {
 ```
 
 ## Removing individuals
-```
+```c++
 int main() {
  StaticNode *node = StaticGlobals::find("MyA1");
  if (node) StaticGlobals::remove(node); // remove MyA1 from initialization and destruction
@@ -42,7 +42,7 @@ int main() {
 ## Real world example
 Have a memory allocator which needs to be allocated before all other static globals,
 you could lazily construct it with a singleton pattern or you could use something like:
-```
+```c++
 StaticGlobal<Allocator> gAllocator("Allocator");
 /// ...
 int main() {
@@ -64,8 +64,8 @@ int main() {
 Of course the other statics may depend on the allocator to exist (e.g free memory)
 so we cannot deinitialize in main, what we could do is something like; which
 uses atexit to register a lambda function which destroys the statics before the
-other atexit handler runs
-```
+other atexit handler runs.
+```c++
 StaticNode *node;
 int main() {
   node = StaticGlobals::find("Allocator");
